@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    options {
+        timestamps()
+    }
+
+    stages {
+        stage('Clone') {
+            steps {
+                checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'shangxianapp-github-xuexb-ssh-key', url: 'git@github.com:shangxianapp/docker-sg02-nginx-proxy.git']]]
+                sh "mkdir dist"
+                sh "ls -lh"
+                sh "cp docker-compose.yml nginx.conf dist/"
+            }
+        }
+
+        stage('Publish') {
+            steps {
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'sg02', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'echo \'success\'', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: "${DOCKER_NGINX_DIR}", remoteDirectorySDF: false, removePrefix: 'dist', sourceFiles: 'dist/**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+            }
+        }
+
+        stage('Reload') {
+            steps {
+                withCredentials([sshUserPrivateKey(credentialsId: 'shangxianapp-xiaowu-ssh-key', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
+                    script {
+                        def remote = [:]
+                        remote.name = 'sg02'
+                        remote.host = 'sg02.ddns.shangxian.app'
+                        remote.allowAnyHosts = true
+                        remote.user = userName
+                        remote.identityFile = identity
+                        sshCommand remote: remote, command: 'cd ${DOCKER_NGINX_DIR} && ls -lh && docker-compose up -d'
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            deleteDir()
+        }
+    }
+}
