@@ -25,3 +25,9 @@ server {
     root $WWWROOT_DIR/xxx;
 }
 ```
+
+## 刷新 Nginx 命令
+
+```bash
+/bin/sh $DOCKER_NGINX_DIR/reload.sh
+```

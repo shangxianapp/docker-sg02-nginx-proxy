@@ -31,7 +31,7 @@ pipeline {
                         remote.allowAnyHosts = true
                         remote.user = userName
                         remote.identityFile = identity
-                        sshCommand remote: remote, command: 'cd ${DOCKER_NGINX_DIR} && ls -lh && docker-compose up -d'
+                        sshCommand remote: remote, command: '/bin/sh $DOCKER_NGINX_DIR/reload.sh'
                     }
                 }
             }
