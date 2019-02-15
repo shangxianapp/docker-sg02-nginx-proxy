@@ -24,4 +24,4 @@ server {
 
     root $WWWROOT_DIR/xxx;
 }
-``
+```
