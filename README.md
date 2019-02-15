@@ -16,13 +16,18 @@ sg02 服务器的 Nginx 反向代理，通过 SSL 证书目录、虚拟主机配
 - `inc/robots.disallow.txt` - 蜘蛛配置，禁止抓取
 - `inc/ssl.conf` - 公用 SSL 配置
 
-## 变量使用
+## 示例
 
 ```nginx
 server {
     set_by_lua $WWWROOT_DIR 'return os.getenv("WWWROOT_DIR")';
-
     root $WWWROOT_DIR/xxx;
+
+    include inc/favicon.conf;
+
+    include                         inc/ssl.conf;
+    ssl_certificate                 ca/shangxian.app/fullchain.cer;
+    ssl_certificate_key             ca/shangxian.app/shangxian.app.key;
 }
 ```
 
