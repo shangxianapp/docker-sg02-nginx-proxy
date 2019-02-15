@@ -6,14 +6,14 @@ pipeline {
     }
 
     stages {
-        stage('Clone') {
-            steps {
-                checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'shangxianapp-github-xuexb-ssh-key', url: 'git@github.com:shangxianapp/docker-sg02-nginx-proxy.git']]]
-                sh "mkdir dist"
-                sh "ls -lh"
-                sh "cp -r html inc docker-compose.yml nginx.conf dist/"
-            }
-        }
+        // stage('Clone') {
+        //     steps {
+        //         checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'shangxianapp-github-xuexb-ssh-key', url: 'git@github.com:shangxianapp/docker-sg02-nginx-proxy.git']]]
+        //         sh "mkdir dist"
+        //         sh "ls -lh"
+        //         sh "cp -r html inc docker-compose.yml nginx.conf dist/"
+        //     }
+        // }
 
         stage('Publish') {
             steps {
