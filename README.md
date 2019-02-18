@@ -15,6 +15,7 @@ sg02 服务器的 Nginx 反向代理，通过 SSL 证书目录、虚拟主机配
 - `inc/robots.txt` - 蜘蛛配置
 - `inc/robots.disallow.txt` - 蜘蛛配置，禁止抓取
 - `inc/ssl.conf` - 公用 SSL 配置
+- `inc/no-cache.conf` - 关闭浏览器缓存，每次都是 HTTP 200 ，注意：使用的 `add_header` 指令，在需要的地方进行 `include`
 
 ## 示例
 
@@ -28,6 +29,11 @@ server {
     include                         inc/ssl.conf;
     ssl_certificate                 ca/shangxian.app/fullchain.cer;
     ssl_certificate_key             ca/shangxian.app/shangxian.app.key;
+
+    location / {
+        add_header 'x-dns-prefetch-control' 'on';
+        include inc/no-cache.conf;
+    }
 }
 ```
 
