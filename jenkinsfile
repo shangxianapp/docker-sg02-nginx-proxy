@@ -17,6 +17,8 @@ pipeline {
 
         stage('Publish') {
             steps {
+                sh "mkdir dist"
+                sh "cp -r html inc docker-compose.yml nginx.conf reload.sh dist/"
                 sshPublisher(publishers: [sshPublisherDesc(configName: 'sg02', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'echo \'success ok\'', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: "${DOCKER_NGINX_DIR}", remoteDirectorySDF: false, removePrefix: 'dist', sourceFiles: 'dist/**/*')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
         }
