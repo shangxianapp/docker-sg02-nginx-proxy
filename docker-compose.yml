@@ -12,9 +12,6 @@ services:
       - "${DOCKER_NGINX_CA_DIR}:/etc/nginx/ca"
       - "${WWWROOT_DIR}:/usr/share/nginx/html"
     restart: always
-    deploy:
-      restart_policy:
-        delay: 5s
     ports:
       - 80:80
       - 443:443
