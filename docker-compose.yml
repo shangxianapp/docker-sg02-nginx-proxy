@@ -8,6 +8,7 @@ services:
       - './nginx.conf:/etc/nginx/nginx.conf'
       - './inc:/etc/nginx/inc'
       - './html:/etc/nginx/html'
+      - './lua:/etc/nginx/lua'
       - "${DOCKER_NGINX_VHOST_DIR}:/etc/nginx/vhost"
       - "${DOCKER_NGINX_CA_DIR}:/etc/nginx/ca"
       - "${WWWROOT_DIR}:/usr/share/nginx/html"

@@ -3,8 +3,8 @@ sg02 服务器的 Nginx 反向代理，通过 SSL 证书目录、虚拟主机配
 
 ## 目录映射
 
-- `DOCKER_NGINX_VHOST_DIR` - Nginx 虚拟主机目录，在 `nginx.conf` 里直接加载：`include vhost/*.conf` ，或者使用变量 `DOCKER_NGINX_VHOST_DIR`
-- `DOCKER_NGINX_CA_DIR` - Nginx SSL 证书目录，在 Nginx 配置文件里可以直接使用 `ca/domain/xxx` 引用，或者使用变量 `DOCKER_NGINX_CA_DIR`
+- `DOCKER_NGINX_VHOST_DIR` - Nginx 虚拟主机目录，在 `nginx.conf` 里直接加载：`include vhost/*.conf`
+- `DOCKER_NGINX_CA_DIR` - Nginx SSL 证书目录，在 Nginx 配置文件里可以直接使用 `ca/domain/xxx` 引用
 - `WWWROOT_DIR` - 网站目录，以域名为子目录存放，在 Nginx 配置文件中使用 `/usr/share/nginx/html/子目录` 引用，或者使用变量 `WWWROOT_DIR`
 
 > 注意：以上变量是在 sg02 服务器中定义。
@@ -16,6 +16,10 @@ sg02 服务器的 Nginx 反向代理，通过 SSL 证书目录、虚拟主机配
 - `inc/robots.disallow.txt` - 蜘蛛配置，禁止抓取
 - `inc/ssl.conf` - 公用 SSL 配置
 - `inc/no-cache.conf` - 关闭浏览器缓存，每次都是 HTTP 200 ，注意：使用的 `add_header` 指令，在需要的地方进行 `include`
+
+## Lua 文件支持
+
+以 `./lua` 当前目录映射到 `/etc/nginx/lua` 目录，在配置里直接使用 `lua/xxx.lua` 引用。
 
 ## 示例
 
@@ -33,6 +37,10 @@ server {
     location / {
         add_header 'x-dns-prefetch-control' 'on';
         include inc/no-cache.conf;
+    }
+
+    location @webp {
+        content_by_lua_file "lua/webp.lua";
     }
 }
 ```
