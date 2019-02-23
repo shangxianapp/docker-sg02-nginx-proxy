@@ -12,10 +12,11 @@ sg02 服务器的 Nginx 反向代理，通过 SSL 证书目录、虚拟主机配
 ## 通用配置引用
 
 - `inc/favicon.conf` - Favicon 图标
-- `inc/robots.txt` - 蜘蛛配置
-- `inc/robots.disallow.txt` - 蜘蛛配置，禁止抓取
+- `inc/robots.conf` - 蜘蛛配置
+- `inc/robots.disallow.conf` - 蜘蛛配置，禁止抓取
 - `inc/ssl.conf` - 公用 SSL 配置
 - `inc/no-cache.conf` - 关闭浏览器缓存，每次都是 HTTP 200 ，注意：使用的 `add_header` 指令，在需要的地方进行 `include`
+- `inc/security.conf` - 一些安全、优化相关的公用配置
 
 ## Lua 文件支持
 
