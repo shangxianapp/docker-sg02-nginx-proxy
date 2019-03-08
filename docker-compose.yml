@@ -9,6 +9,7 @@ services:
       - './inc:/etc/nginx/inc'
       - './html:/etc/nginx/html'
       - './lua:/etc/nginx/lua'
+      - './ssl:/etc/nginx/ssl'
       - "${DOCKER_NGINX_VHOST_DIR}:/etc/nginx/vhost"
       - "${DOCKER_NGINX_CA_DIR}:/etc/nginx/ca"
       - "${WWWROOT_DIR}:/usr/share/nginx/html"
