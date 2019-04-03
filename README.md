@@ -6,6 +6,7 @@ sg02 服务器的 Nginx 反向代理，通过 SSL 证书目录、虚拟主机配
 - `DOCKER_NGINX_VHOST_DIR` - Nginx 虚拟主机目录，在 `nginx.conf` 里直接加载：`include vhost/*.conf` ，如果有站点自定义公用文件，可以以站点名为目录存放，使用 `include vhost/站点名/demo.conf`
 - `DOCKER_NGINX_CA_DIR` - Nginx SSL 证书目录，在 Nginx 配置文件里可以直接使用 `ca/domain/xxx` 引用
 - `WWWROOT_DIR` - 网站目录，以域名为子目录存放，在 Nginx 配置文件中使用 `/usr/share/nginx/html/子目录` 引用，或者使用变量 `WWWROOT_DIR`
+- `LOCAL_DIR` - 网站数据，映射到 `/usr/share/data` ，可以使用变量 `LOCAL_DIR` 获取
 
 > 注意：以上变量是在 sg02 服务器中定义。
 

@@ -13,6 +13,7 @@ services:
       - "${DOCKER_NGINX_VHOST_DIR}:/etc/nginx/vhost"
       - "${DOCKER_NGINX_CA_DIR}:/etc/nginx/ca"
       - "${WWWROOT_DIR}:/usr/share/nginx/html"
+      - "${LOCAL_DIR}:/usr/share/data"
     restart: always
     ports:
       - 80:80
@@ -21,6 +22,7 @@ services:
       - DOCKER_NGINX_VHOST_DIR=/etc/nginx/vhost
       - DOCKER_NGINX_CA_DIR=/etc/nginx/ca
       - WWWROOT_DIR=/usr/share/nginx/html
+      - LOCAL_DIR=/usr/share/data
 
 networks:
   default:
